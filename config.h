@@ -67,11 +67,12 @@ static const Rule rules[] = {
 	{ "Gimp",																				NULL,						NULL,								0,              1,          0,           0,      	 -1 },
 	{ "firefox",																		NULL,						NULL,								1 << 0,         0,          0,          -1,      	 -1 },
 	{ "St",																					NULL,						NULL,								0,              0,          1,           0,      	 -1 },
-	{ "Alacritty",																	NULL,						NULL,								0,              0,          1,           0,      	 -1 },
+	{ "Alacritty",																	NULL,						NULL,								0,              0,          0,           0,      	 -1 },
+	{ "discord",																		NULL,						NULL,					      1 << 3,         0,          0,           0,      	 -1 },
 	{ "Ferdi",																		  NULL,						NULL,								1 << 3,         0,          0,           0,      	 -1 },
+	{ "Spotify",																		NULL,						NULL,								1 << 7,         0,          0,           1,      	 -1 },
+	{ "broken", 																		NULL,						NULL,								1 << 7,         0,          0,           1,      	 -1 },
 	{ "mpv",																		    NULL,						NULL,								1 << 2,         0,          0,           0,      	 -1 },
-	{ "Spotify",																				  NULL,						NULL,					1 << 7,         0,          0,           0,      	 -1 },
-	{ "org-tlauncher-tlauncher-rmo-TLauncher",      NULL,						NULL,								0,              1,          0,           1,      	 -1 },
 	{ NULL,																					NULL,					 "Event Tester",			0,              0,          0,           1,      	 -1 }, /* xev */
 	{ NULL,																					"spterm",		    NULL,								SPTAG(0),				1,          0,           0,				 -1 },
 	{ NULL,																					"spfm",					NULL,								SPTAG(1),				1,          0,           0,				 -1 },
@@ -140,12 +141,12 @@ ResourcePref resources[] = {
 #include "shiftview.c"
 #include "movestack.c"
 static Key keys[] = {
-	/* modifier                     key        function        argument */
-	{ MODKEY,												XK_grave,										spawn,	SHCMD("dmenuunicode") },
-	{ MODKEY|ShiftMask,							XK_q,												spawn,		SHCMD("sysact") },
+	/* modifier                     key												  function        argument */
+	{ MODKEY,												XK_grave,										spawn,					SHCMD("dmenuunicode") },
+	{ MODKEY|ShiftMask,							XK_q,												spawn,		      SHCMD("sysact") },
 	{ MODKEY|ShiftMask,							XK_f,												togglefullscr,	{0} },
-	{ MODKEY|ShiftMask,							XK_n,												spawn,		SHCMD(TERMINAL " -e newsboat") },
-	{ MODKEY,												XK_q,												spawn,		SHCMD("dmkill") },
+	{ MODKEY|ShiftMask,							XK_n,												spawn,		      SHCMD(TERMINAL " -e newsboat") },
+	{ MODKEY,												XK_q,												spawn,		      SHCMD("dmkill") },
 	{ MODKEY,												XK_F1,											spawn,					SHCMD("sxiv -r -q -t -o /home/yogansh/wallpapers|xargs -r nitrogen --set-scaled --save") },
 	{ MODKEY,												XK_F9,											spawn,					SHCMD("dmenumount") },
 	{ MODKEY,												XK_F10,											spawn,					SHCMD("dmenuumount") },
@@ -153,10 +154,13 @@ static Key keys[] = {
 	{ MODKEY,												XK_r,												spawn,					SHCMD("launcher") },
 	{ MODKEY,												XK_w,												spawn,					SHCMD(BROWSER) },
 	{ MODKEY|ShiftMask,							XK_c,												spawn,					SHCMD("ferdi") },
-	{ ControlMask,									XK_space,										spawn,					SHCMD("dunstctl close") },
-	{ ControlMask|ShiftMask,				XK_space,										spawn,					SHCMD("dunstctl close-all") },
-	{ ControlMask,									XK_grave,										spawn,					SHCMD("dunstctl history-pop") },
-	{ ControlMask|ShiftMask,				XK_grave,										spawn,					SHCMD("dunstctl context") },
+	{ MODKEY|ShiftMask,							XK_d,												spawn,					SHCMD("discord") },
+	{ MODKEY|ShiftMask,							XK_m,												spawn,					SHCMD("LD_PRELOAD=/usr/lib/spotify-adblock.so spotify") },
+	{ MODKEY|ControlMask,						XK_space,										spawn,					SHCMD("dunstctl close-all") },
+	{ MODKEY|Mod1Mask,              XK_space,										spawn,					SHCMD("dunstctl close") },
+	{ ControlMask|Mod1Mask,	 		  XK_x,										    spawn,					SHCMD("xkill") },
+	{ MODKEY|ControlMask,						XK_grave,										spawn,					SHCMD("dunstctl history-pop") },
+	{ MODKEY|ControlMask,				    XK_Return,									spawn,				  SHCMD("dunstctl context") },
 	{ MODKEY|ShiftMask,							XK_s,												spawn,					SHCMD("~/.config/rofi/bin/applet_screenshot") },
 	{ 0,                            XF86XK_AudioMute,						spawn,					SHCMD("pamixer -t;kill -44 $(pidof dwmblocks)") },
 	{ 0,                            XF86XK_AudioRaiseVolume,		spawn,					SHCMD("pamixer --allow-boost -i 3;kill -44 $(pidof dwmblocks)") },
@@ -186,16 +190,16 @@ static Key keys[] = {
 	{ MODKEY,                       XK_t,												setlayout,      {.v = &layouts[0]} }, /* tile */
 	{ MODKEY,                       XK_f,												setlayout,      {.v = &layouts[1]} }, /*floating */
 	{ MODKEY,                       XK_m,												setlayout,      {.v = &layouts[2]} }, /* monocle */
-	{ MODKEY,                       XK_y,									setlayout,      {.v = &layouts[3]} }, /* deck */
-	{ MODKEY,                       XK_u,									setlayout,      {.v = &layouts[4]} },
-	{ MODKEY|ShiftMask,             XK_u,									setlayout,      {.v = &layouts[5]} },
-	{ MODKEY|ShiftMask,             XK_space,							togglefloating, {0} },
-	{ MODKEY,                       XK_0,									view,           {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_0,									tag,            {.ui = ~0 } },
-	{ MODKEY,                       XK_comma,							focusmon,       {.i = -1 } },
-	{ MODKEY,                       XK_period,						focusmon,       {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_comma,							tagmon,         {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_period,						tagmon,         {.i = +1 } },
+	{ MODKEY,                       XK_y,												setlayout,      {.v = &layouts[3]} }, /* deck */
+	{ MODKEY,                       XK_u,												setlayout,      {.v = &layouts[4]} },
+	{ MODKEY|ShiftMask,             XK_u,												setlayout,      {.v = &layouts[5]} },
+	{ MODKEY|ShiftMask,             XK_space,										togglefloating, {0} },
+	{ MODKEY,                       XK_0,												view,           {.ui = ~0 } },
+	{ MODKEY|ShiftMask,             XK_0,												tag,            {.ui = ~0 } },
+	{ MODKEY,                       XK_comma,										focusmon,       {.i = -1 } },
+	{ MODKEY,                       XK_period,									focusmon,       {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_comma,										tagmon,         {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_period,									tagmon,         {.i = +1 } },
 	TAGKEYS(                        XK_1,																 0)
 	TAGKEYS(                        XK_2,																 1)
 	TAGKEYS(                        XK_3,																 2)
