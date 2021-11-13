@@ -158,7 +158,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,							XK_m,												spawn,					SHCMD("LD_PRELOAD=/usr/lib/spotify-adblock.so spotify") },
 	{ MODKEY|ControlMask,						XK_space,										spawn,					SHCMD("dunstctl close-all") },
 	{ MODKEY|Mod1Mask,              XK_space,										spawn,					SHCMD("dunstctl close") },
-	{ ControlMask|Mod1Mask,	 		  XK_x,										    spawn,					SHCMD("xkill") },
+	{ ControlMask|Mod1Mask,	 		    XK_x,										    spawn,					SHCMD("xkill") },
 	{ MODKEY|ControlMask,						XK_grave,										spawn,					SHCMD("dunstctl history-pop") },
 	{ MODKEY|ControlMask,				    XK_Return,									spawn,				  SHCMD("dunstctl context") },
 	{ MODKEY|ShiftMask,							XK_s,												spawn,					SHCMD("~/.config/rofi/bin/applet_screenshot") },
