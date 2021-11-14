@@ -4,7 +4,6 @@
 static unsigned int baralpha        = 0xd0;
 static unsigned int borderalpha     = OPAQUE;
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
-static const unsigned int gappx     = 6;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
@@ -129,6 +128,22 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
 	{ MODKEY,                       XK_Return, zoom,           {0} },
+	{ MODKEY|Mod4Mask,              XK_u,      incrgaps,       {.i = +1 } },
+	{ MODKEY|Mod4Mask|ShiftMask,    XK_u,      incrgaps,       {.i = -1 } },
+	{ MODKEY|Mod4Mask,              XK_i,      incrigaps,      {.i = +1 } },
+	{ MODKEY|Mod4Mask|ShiftMask,    XK_i,      incrigaps,      {.i = -1 } },
+	{ MODKEY|Mod4Mask,              XK_o,      incrogaps,      {.i = +1 } },
+	{ MODKEY|Mod4Mask|ShiftMask,    XK_o,      incrogaps,      {.i = -1 } },
+	{ MODKEY|Mod4Mask,              XK_6,      incrihgaps,     {.i = +1 } },
+	{ MODKEY|Mod4Mask|ShiftMask,    XK_6,      incrihgaps,     {.i = -1 } },
+	{ MODKEY|Mod4Mask,              XK_7,      incrivgaps,     {.i = +1 } },
+	{ MODKEY|Mod4Mask|ShiftMask,    XK_7,      incrivgaps,     {.i = -1 } },
+	{ MODKEY|Mod4Mask,              XK_8,      incrohgaps,     {.i = +1 } },
+	{ MODKEY|Mod4Mask|ShiftMask,    XK_8,      incrohgaps,     {.i = -1 } },
+	{ MODKEY|Mod4Mask,              XK_9,      incrovgaps,     {.i = +1 } },
+	{ MODKEY|Mod4Mask|ShiftMask,    XK_9,      incrovgaps,     {.i = -1 } },
+	{ MODKEY|Mod4Mask,              XK_0,      togglegaps,     {0} },
+	{ MODKEY|Mod4Mask|ShiftMask,    XK_0,      defaultgaps,    {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },

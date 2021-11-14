@@ -1,3 +1,5 @@
 *.o
+*.rej
+*.orig
 dwm
 dwm-msg
